@@ -5,7 +5,6 @@ function Card({card, name, link, likes, onCardClick}) {
     }  
 
     return (
-    <div className="item-template" id="place-card">
         <li className="photos__card">
             <img onClick={handleClick} src={link} className="photos__image" alt="Картинка" />
         <div className="photos__title-like"> 
@@ -17,7 +16,6 @@ function Card({card, name, link, likes, onCardClick}) {
         </div>
         <button className="photos__delete" type="button" aria-label="удалить"></button>
         </li>
-    </div>
     )
 }
   
