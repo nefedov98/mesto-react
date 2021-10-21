@@ -22,13 +22,13 @@ getUserInfoApi () {
   .then(this._checkResponse)
 }
 
-setUserInfoApi({ name, about }) {
+setUserInfoApi(userData) {
   return fetch(`${this.url}/users/me`, {
     method: 'PATCH',
     headers: this.headers,
     body: JSON.stringify({
-      name,
-      about
+      name: userData.name,
+      about: userData.about
     })
   })
   .then(this._checkResponse)
@@ -47,7 +47,7 @@ creatNewCard (data) {
     headers: this.headers,
     method: 'POST',
     body: JSON.stringify({
-      name: data.nameAdd,
+      name: data.name,
       link: data.link
     })
   })
@@ -61,10 +61,10 @@ deleteCard (id) {
   })
   .then(this._checkResponse)
 }
-like(id) {  
+like(id, isLiked) {  
   console.log(id)
   return fetch(`${this.url}/cards/likes/${id}`, {
-    method: 'PUT',
+    method: `${isLiked ? 'PUT' : 'DELETE'}`,
     headers: this.headers
   })
   .then(this._checkResponse)
@@ -84,7 +84,7 @@ handleUserAvatar(data) {
     method: 'PATCH',
     headers: this.headers,
     body: JSON.stringify({
-      avatar: data.linkAvatar,
+      avatar: data.avatar,
     })
   })
   .then(this._checkResponse)
