@@ -73,7 +73,9 @@ function App() {
       
         api.like(card._id, !isLiked).then((newCard) => {
             setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-        });
+        })
+
+        .catch((err) => console.log(err))
     }   
     
     function handleCardDelete (card) {
@@ -93,21 +95,34 @@ function App() {
           .catch((err) => console.log(err))
     }
 
-    React.useEffect(() => {
-        api.getUserInfoApi()
-        .then((data) => {
-            setIsCurrentUser(data)
-         })
-        .catch((err) => console.log(err))
-    }, [])
+    // React.useEffect(() => {
+    //     api.getUserInfoApi()
+    //     .then((data) => {
+            // setIsCurrentUser(data)
+    //      })
+    //     .catch((err) => console.log(err))
+    // }, [])
+
+    // React.useEffect(() => {
+    //     api.getInitialCards()
+    //     .then((data) => {
+    //         setCards(data)
+    //         console.log(data)
+
+            
+    //     })
+    //     .catch((err) => console.log(err))
+    // }, [])
 
     React.useEffect(() => {
-        api.getInitialCards()
-        .then((data) => {
-            setCards(data)
-            console.log(data)
-        })
-        .catch((err) => console.log(err))
+        Promise.all([api.getUserInfoApi(), api.getInitialCards()])
+            .then(([ userData, cards ]) => {
+                setCards(cards)
+
+                setIsCurrentUser(userData)
+
+            })
+            .catch((err) => console.log(err));
     }, [])
 
   return (

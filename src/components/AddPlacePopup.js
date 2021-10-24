@@ -22,11 +22,17 @@ function AddPlacePopup ({isOpen, onClose, onAddPlace }) {
       })
     }
 
+    React.useEffect(() => {
+      return isOpen & setName(''), setLink('')
+    }, [isOpen])
+
+    
+
     return (      
-        <PopupWithForm name={'add'} title={'Новое место'} buttonText={'Добавить'} isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}>
-            <input type="text" className="form__input form__input_title" placeholder="Название" defaultValue="" minLength="2" maxLength="30" required="" onChange={handleNameChange}/>
+        <PopupWithForm name='add' title='Новое место' buttonText='Добавить' isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}>
+            <input type="text" className="form__input form__input_title" placeholder="Название" value={name}  minLength="2" maxLength="30" required="" onChange={handleNameChange}/>
                 <span className="form__input-error"></span>
-            <input type="url" className="form__input form__input_link" placeholder="Ссылка на картинку" name="image-place" id ='link' defaultValue="" required="" onChange={handleLinkChange}/>
+            <input type="url" className="form__input form__input_link" placeholder="Ссылка на картинку" name="image-place" id ='link' value={link} required="" onChange={handleLinkChange}/>
                 <span className="form__input-error"></span>
         </ PopupWithForm >
     )
